@@ -1,0 +1,181 @@
+#Test with: http://editor.swagger.io/
+
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Microservice for Comment Events
+  description: PHP + MySQL
+  license:
+    name: Eventum, 2020-I
+host: 127.0.0.1:8000
+basePath: /api/
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /comment:
+    post:
+      summary: Creates a new comment
+      operationId: createComment
+      parameters:
+        - name: comment
+          in: body
+          required: true
+          description: Comment Object
+          schema:
+            $ref: '#/definitions/CommentInput'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    
+
+  /comment/{id}:
+    get:
+      summary: Returns all comments of an event
+      operationId: getAllComments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of event to show comments
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/CommentList'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  
+
+    put:
+      summary: Updates a comment with the given id
+      operationId: updateComment
+      parameters:
+        - name: id
+          in: path
+          description: The id of the comment to be updated
+          required: true
+          type: integer
+        - name: comment
+          in: body
+          required: true
+          description: The new text of the comment
+          schema:
+            $ref: '#/definitions/CommentInput'
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    delete:
+      summary: Deletes a comment with the given id
+      operationId: deleteComment
+      parameters:
+        - name: id
+          in: path
+          description: The id of the comment to be deleted
+          required: true
+          type: integer
+      responses:
+        '204':
+          description: Ok
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+definitions:
+
+  # Comment
+  Comment:
+    type: object
+    properties:
+      id:
+        type: integer
+      idEvent:
+        type: integer
+      idUser:
+        type: integer
+      text:
+        type: string
+      created_at:
+        type: string
+      updated_at:
+        type: string
+
+  CommentInput:
+    type: object
+    properties:
+      idUser:
+        type: integer
+      idEvent:
+        type: integer
+      text:
+        type: string
+    
+
+  CommentList:
+    type: object
+  
+    properties:
+      total:
+        type: number
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/Comment'
+
+# Errors
+  ErrorModel:
+    type: object
+    required:
+      - message
+      - code
+    properties:
+      message:
+        type: string
+      code:
+        type: number
+      description:
+        type: object
