@@ -3,7 +3,13 @@ services:
   eventum-comment-ms:
     container_name: eventum-comment-ms
     build: .
-    
+    environment: # Definición de variables de entorn
+      DB_CONNECTION: mysql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_DATABASE: eventum
+      DB_USERNAME: larauser
+      DB_PASSWORD: P@ssword0000
     networks:
       - example-network
     depends_on:
