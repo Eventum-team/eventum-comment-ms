@@ -15,10 +15,11 @@ use App\Comment;
 |
 */
 
-Route::get('comment/{id}', 'CommentController@show');
+Route::get('comment/{id}/{idUsr}', 'CommentController@show');
 Route::post('comment', 'CommentController@store');
 Route::put('comment/{id}', 'CommentController@update');
 Route::delete('comment/{id}', 'CommentController@delete');
+Route::post('react', 'CommentController@react');
 
-
+Route::delete('react/{id}/{idUsr}', 'CommentController@unReact');
 Route::resource('comment', 'CommentController');
