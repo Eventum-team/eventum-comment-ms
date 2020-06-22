@@ -1,21 +1,14 @@
 version: '2.1'
 services:
-  eventum-comment-db:
-    container_name: eventum-comment-db
-    image: mysql:5.7
-    environment: # Definición de variables de entorn
-      MYSQL_DATABASE: eventum
-      MYSQL_ROOT_PASSWORD: 123
-      MYSQL_USER: larauser
-      MYSQL_PASSWORD: P@ssword0000
-    healthcheck:
-      test: "mysqlcheck -u$$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE"
-      interval: 20s
-      timeout: 5s
-      retries: 15
-    ports:  # Mapeo de puertos
-      - "3307:3306"
-
-
+  eventum-comment-ms:
+    container_name: eventum-comment-ms
+    build: .
+    links: eventum-comment-db
+    depends_on:
+      eventum-comment-db: 
+        condition: service_healthy
+    ports:
+      - "8002:8002"
+ 
       
 
