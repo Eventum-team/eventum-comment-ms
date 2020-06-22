@@ -8,20 +8,8 @@ services:
       MYSQL_ROOT_PASSWORD: 123
       MYSQL_USER: larauser
       MYSQL_PASSWORD: P@ssword0000
-    healthcheck:
-      test: "mysqlcheck -u$$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE"
-      interval: 20s
-      timeout: 5s
-      retries: 15
     ports:  # Mapeo de puertos
       - "3307:3306"
 
 
-      environment: # Definición de variables de entorn
-      MYSQL_DATABASE: ev_groups
-      MYSQL_ROOT_PASSWORD: 123
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: ev_groups_2020i
-
       
-
