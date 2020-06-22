@@ -5,7 +5,7 @@ services:
     image: mysql:5.7
     environment: # Definición de variables de entorn
       MYSQL_DATABASE: eventum
-      MYSQL_ROOT_PASSWORD: 0000
+      MYSQL_ROOT_PASSWORD: 123
       MYSQL_USER: larauser
       MYSQL_PASSWORD: P@ssword0000
     healthcheck:
@@ -16,6 +16,12 @@ services:
     ports:  # Mapeo de puertos
       - "3307:3306"
 
+
+      environment: # Definición de variables de entorn
+      MYSQL_DATABASE: ev_groups
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: ev_groups_2020i
 
       
 
