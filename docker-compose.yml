@@ -7,7 +7,7 @@ services:
       - "8002:8002"
     environment: # Definición de variables de entorn
       DB_CONNECTION: mysql
-      DB_HOST: 192.168.0.1
+      DB_HOST: ev-comments-service-clusterip
       DB_PORT: 3306
       DB_DATABASE: eventum
       DB_USERNAME: larauser
