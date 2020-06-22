@@ -3,8 +3,6 @@ services:
   eventum-comment-ms:
     container_name: eventum-comment-ms
     build: .
-    links: eventum-comment-db
-    
     ports:
       - "8002:8002"
     environment: # Definición de variables de entorn
