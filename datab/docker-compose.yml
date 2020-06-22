@@ -1,5 +1,15 @@
 version: '2.1'
 services:
+  eventum-comment-ms:
+    container_name: eventum-comment-ms
+    build: .
+    link: eventum-comment-db
+    depends_on:
+      eventum-comment-db: 
+        condition: service_healthy
+    ports:
+      - "8002:8002"
+
   eventum-comment-db:
     container_name: eventum-comment-db
     image: mysql:5.7
